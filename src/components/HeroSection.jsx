@@ -38,15 +38,19 @@ export function HeroSection({ currentGuest }) {
   }, [])
 
   const downloadIcsCalendar = () => {
+    const startDate = new Date(event.isoDate)
+    const endDate = new Date(startDate.getTime() + 7 * 60 * 60 * 1000) // +7 heures
+    const formatIcsDate = (d) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
       'PRODID:-//The Queens Graduation Gala//FR',
       'BEGIN:VEVENT',
       'UID:graduation-magaly-2026@queen.fr',
-      'DTSTAMP:20260926T200000Z',
-      'DTSTART:20261024T173000Z',
-      'DTEND:20261025T020000Z',
+      `DTSTAMP:${formatIcsDate(new Date())}`,
+      `DTSTART:${formatIcsDate(startDate)}`,
+      `DTEND:${formatIcsDate(endDate)}`,
       `SUMMARY:${txt.icsSummary || "Célébration Diplôme Magaly - Restaurant de l'Hippodrome"}`,
       `DESCRIPTION:${txt.icsDescription || "Dîner au Restaurant de l'Hippodrome à 19h30, clôture restaurant 23h, puis verre en ville !"}`,
       `LOCATION:${event.location.name}\\, ${event.location.address}`,
