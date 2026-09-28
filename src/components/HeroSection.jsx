@@ -3,8 +3,9 @@ import { Crown, Sparkles, Calendar, Clock, MapPin, Download, Heart } from 'lucid
 import { EVENT_CONFIG } from '../config/eventConfig'
 import { fireCelebrationBlast } from '../utils/confetti'
 
+const { hero: txt, event, queen } = EVENT_CONFIG
+
 export function HeroSection({ currentGuest }) {
-  // Compte à rebours dynamique
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -13,7 +14,7 @@ export function HeroSection({ currentGuest }) {
   })
 
   useEffect(() => {
-    const targetDate = new Date(EVENT_CONFIG.event.isoDate).getTime()
+    const targetDate = new Date(event.isoDate).getTime()
 
     const calculateTime = () => {
       const now = new Date().getTime()
@@ -36,7 +37,6 @@ export function HeroSection({ currentGuest }) {
     return () => clearInterval(timer)
   }, [])
 
-  // Téléchargement du fichier de calendrier ICS
   const downloadIcsCalendar = () => {
     const icsContent = [
       'BEGIN:VCALENDAR',
@@ -45,11 +45,11 @@ export function HeroSection({ currentGuest }) {
       'BEGIN:VEVENT',
       'UID:graduation-magaly-2026@queen.fr',
       'DTSTAMP:20260926T200000Z',
-      'DTSTART:20261024T160000Z', // 18h00 Paris
-      'DTEND:20261025T020000Z',   // 04h00 Paris
-      'SUMMARY:The Queen\'s Graduation Gala - Magaly',
-      'DESCRIPTION:Célébration officielle de remise de diplôme de la Reine Magaly. Dress code : Nude & Or impérial (Aucun rose toléré).',
-      `LOCATION:${EVENT_CONFIG.event.location.name}\\, ${EVENT_CONFIG.event.location.address}`,
+      'DTSTART:20261024T160000Z',
+      'DTEND:20261025T020000Z',
+      "SUMMARY:The Queen's Graduation Gala - Magaly",
+      'DESCRIPTION:Célébration officielle de remise de diplôme de Magaly. Dress code : Nude & Or impérial (Aucun rose toléré).',
+      `LOCATION:${event.location.name}\\, ${event.location.address}`,
       'STATUS:CONFIRMED',
       'END:VEVENT',
       'END:VCALENDAR',
@@ -65,6 +65,13 @@ export function HeroSection({ currentGuest }) {
     document.body.removeChild(link)
     fireCelebrationBlast()
   }
+
+  const countdownUnits = [
+    { label: txt.countdownUnits[0], val: timeLeft.days },
+    { label: txt.countdownUnits[1], val: timeLeft.hours },
+    { label: txt.countdownUnits[2], val: timeLeft.minutes },
+    { label: txt.countdownUnits[3], val: timeLeft.seconds },
+  ]
 
   return (
     <section id="hero" style={{
@@ -93,14 +100,14 @@ export function HeroSection({ currentGuest }) {
         right: '5%',
         width: '450px',
         height: '450px',
-        background: 'radial-gradient(circle, rgba(139, 37, 51, 0.15) 0%, rgba(81, 24, 31, 0.06) 55%, transparent 75%)',
+        background: 'radial-gradient(circle, rgba(139, 37, 51, 0.18) 0%, rgba(81, 24, 31, 0.08) 55%, transparent 75%)',
         filter: 'blur(80px)',
         pointerEvents: 'none',
       }} />
 
       <div style={{ maxWidth: '980px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
         
-        {/* Blason / Armoiries Royales */}
+        {/* Blason / Armoiries */}
         <div style={{
           width: '150px',
           height: '150px',
@@ -108,34 +115,34 @@ export function HeroSection({ currentGuest }) {
           borderRadius: '50%',
           overflow: 'hidden',
           border: '3px solid var(--gold-500)',
-          boxShadow: '0 0 0 6px rgba(81, 24, 31, 0.35), 0 0 35px rgba(212, 175, 55, 0.4), 0 12px 30px rgba(0,0,0,0.8)',
-          background: '#1A0508',
+          boxShadow: '0 0 0 6px rgba(81, 24, 31, 0.35), 0 0 35px rgba(212, 175, 55, 0.4), 0 12px 30px rgba(26, 5, 8, 0.8)',
+          background: 'var(--bordeaux-950)',
           position: 'relative',
         }}>
           <img
             src="./queen-crest.jpg"
-            alt="Armoiries de Sa Majesté Magaly"
+            alt={`Armoiries de ${queen.firstName}`}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
 
-        {/* Badge Proclamation */}
+        {/* Badge */}
         <div className="royal-badge" style={{ marginBottom: '1.25rem' }}>
           <Sparkles size={14} />
-          PAR DÉCRET OFFICIEL DE SA MAJESTÉ
+          {txt.badge}
         </div>
 
-        {/* Titre Principal Majestueux */}
+        {/* Titre Principal */}
         <h1 style={{
           fontSize: 'clamp(2.1rem, 5.5vw, 3.8rem)',
           lineHeight: 1.15,
           marginBottom: '0.85rem',
           color: '#FAF7F2',
         }}>
-          The Queen's <span className="text-gold-gradient">Graduation</span> Gala
+          The Queen&apos;s <span className="text-gold-gradient">Graduation</span> Gala
         </h1>
 
-        {/* Sous-titre & Célébration */}
+        {/* Sous-titre */}
         <p style={{
           fontFamily: 'var(--font-royal)',
           fontSize: 'clamp(1rem, 2.4vw, 1.35rem)',
@@ -144,20 +151,20 @@ export function HeroSection({ currentGuest }) {
           marginBottom: '1.5rem',
           textTransform: 'uppercase',
         }}>
-          Le Couronnement Académique de {EVENT_CONFIG.queen.firstName}
+          {txt.subtitle} {queen.firstName}
         </p>
 
         {/* Salutation Personnalisée de l'Invité */}
         {currentGuest && (
           <div style={{
-            background: 'rgba(42, 8, 16, 0.70)',
-            border: '1px solid rgba(139, 37, 51, 0.35)',
+            background: 'rgba(49, 18, 25, 0.72)',
+            border: '1px solid rgba(139, 37, 51, 0.38)',
             borderRadius: 'var(--radius-md)',
             padding: '1rem 1.5rem',
             maxWidth: '680px',
             margin: '0 auto 2.25rem',
             backdropFilter: 'blur(10px)',
-            boxShadow: '0 4px 24px rgba(139, 37, 51, 0.12)',
+            boxShadow: '0 4px 24px rgba(139, 37, 51, 0.15)',
           }}>
             <p className="font-script" style={{
               fontSize: '1.25rem',
@@ -165,7 +172,7 @@ export function HeroSection({ currentGuest }) {
               color: 'var(--nude-100)',
               lineHeight: 1.4,
             }}>
-              "{currentGuest.greeting}"
+              &ldquo;{currentGuest.greeting}&rdquo;
             </p>
             <div style={{
               fontSize: '0.8rem',
@@ -174,12 +181,12 @@ export function HeroSection({ currentGuest }) {
               fontFamily: 'var(--font-royal)',
               letterSpacing: '0.06em',
             }}>
-              Ordre de convocation délivré à : {currentGuest.name} ({currentGuest.role})
+              {txt.guestConvocation} {currentGuest.name}
             </div>
           </div>
         )}
 
-        {/* Barres des Infos Clés */}
+        {/* Infos Clés */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -190,17 +197,17 @@ export function HeroSection({ currentGuest }) {
         }}>
           <div className="royal-glass-card" style={{ padding: '0.75rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <Calendar size={18} color="#D4AF37" />
-            <span>{EVENT_CONFIG.event.dateFormatted}</span>
+            <span>{event.dateFormatted}</span>
           </div>
 
           <div className="royal-glass-card" style={{ padding: '0.75rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <Clock size={18} color="#D4AF37" />
-            <span>{EVENT_CONFIG.event.time}</span>
+            <span>{event.time}</span>
           </div>
 
           <div className="royal-glass-card" style={{ padding: '0.75rem 1.25rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <MapPin size={18} color="#D4AF37" />
-            <span>{EVENT_CONFIG.event.location.name}</span>
+            <span>{event.location.name}</span>
           </div>
         </div>
 
@@ -209,10 +216,10 @@ export function HeroSection({ currentGuest }) {
           maxWidth: '620px',
           margin: '0 auto 2.75rem',
           padding: '1.5rem 1rem',
-          background: 'rgba(21, 18, 15, 0.75)',
+          background: 'rgba(39, 14, 19, 0.78)',
           borderRadius: 'var(--radius-lg)',
           border: '1px solid rgba(212, 175, 55, 0.28)',
-          boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+          boxShadow: '0 8px 30px rgba(26, 5, 8, 0.5)',
         }}>
           <div style={{
             fontSize: '0.75rem',
@@ -222,7 +229,7 @@ export function HeroSection({ currentGuest }) {
             textTransform: 'uppercase',
             marginBottom: '1rem',
           }}>
-            Temps restant avant l'ouverture des portes royales
+            {txt.countdownLabel}
           </div>
 
           <div style={{
@@ -230,16 +237,11 @@ export function HeroSection({ currentGuest }) {
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: '0.75rem',
           }}>
-            {[
-              { label: 'Jours', val: timeLeft.days },
-              { label: 'Heures', val: timeLeft.hours },
-              { label: 'Minutes', val: timeLeft.minutes },
-              { label: 'Secondes', val: timeLeft.seconds },
-            ].map((unit, idx) => (
+            {countdownUnits.map((unit, idx) => (
               <div
                 key={idx}
                 style={{
-                  background: 'rgba(38, 32, 27, 0.9)',
+                  background: 'rgba(49, 18, 25, 0.9)',
                   border: '1px solid rgba(212, 175, 55, 0.25)',
                   borderRadius: 'var(--radius-md)',
                   padding: '0.85rem 0.5rem',
@@ -268,7 +270,7 @@ export function HeroSection({ currentGuest }) {
           </div>
         </div>
 
-        {/* Boutons d'Action Principaux */}
+        {/* Boutons d'Action */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -277,7 +279,7 @@ export function HeroSection({ currentGuest }) {
         }}>
           <a href="#details" className="btn-royal-primary">
             <Crown size={18} />
-            Le Protocole &amp; Dress Code
+            {txt.ctaProtocol}
           </a>
 
           <button
@@ -286,7 +288,7 @@ export function HeroSection({ currentGuest }) {
             style={{ cursor: 'pointer' }}
           >
             <Download size={16} color="#D4AF37" />
-            Ajouter au Calendrier
+            {txt.ctaCalendar}
           </button>
         </div>
 

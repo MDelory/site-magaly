@@ -4,6 +4,8 @@ import { EVENT_CONFIG } from '../config/eventConfig'
 import { fireRoyalStars } from '../utils/confetti'
 import { royalAudio } from '../utils/audio'
 
+const { guestbook: txt } = EVENT_CONFIG
+
 const BADGES = [
   { id: 'champagne', label: '🍾 Champagne Toast', icon: Wine },
   { id: 'queen', label: '👑 Longue Vie à la Reine', icon: Crown },
@@ -35,8 +37,8 @@ export function RoyalGuestbook({ currentGuest }) {
 
     const newToast = {
       id: Date.now(),
-      author: authorName.trim() || currentGuest?.name || 'Convive Royal',
-      role: currentGuest?.role || 'Ami(e) de la Cour',
+      author: authorName.trim() || currentGuest?.name || 'Convive',
+      role: currentGuest ? (txt.roleDefault) : txt.roleDefault,
       date: "À l'instant",
       badge: selectedBadge,
       message: newToastText.trim(),
@@ -67,17 +69,17 @@ export function RoyalGuestbook({ currentGuest }) {
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="royal-badge" style={{ marginBottom: '0.75rem' }}>
             <BookOpen size={14} />
-            REGISTRE DES ÉLOGES
+            {txt.badge}
           </div>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.7rem)',
             color: '#FAF7F2',
             marginBottom: '0.65rem',
           }}>
-            Le Livre d'Or de la Reine
+            {txt.sectionTitle}
           </h2>
           <p style={{ color: 'var(--nude-300)', maxWidth: '580px', margin: '0 auto', fontSize: '0.95rem' }}>
-            Laissez une dédicace, portez un toast impérial ou partagez vos vœux les plus chaleureux pour Magaly.
+            {txt.subtitle}
           </p>
           <div style={{
             width: '80px',
@@ -99,20 +101,20 @@ export function RoyalGuestbook({ currentGuest }) {
           <div className="royal-glass-card" style={{ padding: '2.25rem 2rem' }}>
             <h3 style={{ fontSize: '1.25rem', color: '#FAF7F2', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Sparkles size={18} color="#D4AF37" />
-              Porter un Toast Royal
+              {txt.formTitle}
             </h3>
 
             <form onSubmit={handlePostToast}>
               <div style={{ marginBottom: '1.25rem' }}>
                 <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--gold-400)', marginBottom: '0.4rem', fontFamily: 'var(--font-royal)' }}>
-                  VOTRE NOM DE DIGNITAIRE :
+                  {txt.nameLabel}
                 </label>
                 <input
                   type="text"
                   required
                   value={authorName}
                   onChange={(e) => setAuthorName(e.target.value)}
-                  placeholder="Votre nom..."
+                  placeholder={txt.namePlaceholder}
                   style={{
                     width: '100%',
                     padding: '0.75rem 1rem',
@@ -129,7 +131,7 @@ export function RoyalGuestbook({ currentGuest }) {
               {/* Choix du badge */}
               <div style={{ marginBottom: '1.25rem' }}>
                 <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--gold-400)', marginBottom: '0.5rem', fontFamily: 'var(--font-royal)' }}>
-                  SCEAU DU TOAST :
+                  {txt.badgeLabel}
                 </label>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
                   {BADGES.map((b) => (
@@ -157,14 +159,14 @@ export function RoyalGuestbook({ currentGuest }) {
               {/* Message */}
               <div style={{ marginBottom: '1.5rem' }}>
                 <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--gold-400)', marginBottom: '0.4rem', fontFamily: 'var(--font-royal)' }}>
-                  VOTRE MESSAGE À LA REINE :
+                  {txt.messageLabel}
                 </label>
                 <textarea
                   rows={4}
                   required
                   value={newToastText}
                   onChange={(e) => setNewToastText(e.target.value)}
-                  placeholder="Écrivez vos félicitations mémorables..."
+                  placeholder={txt.messagePlaceholder}
                   style={{
                     width: '100%',
                     padding: '0.85rem 1rem',
@@ -181,7 +183,7 @@ export function RoyalGuestbook({ currentGuest }) {
 
               <button type="submit" className="btn-royal-primary" style={{ width: '100%' }}>
                 <Send size={16} />
-                Apposer mon Sceau au Livre d'Or
+                {txt.submitButton}
               </button>
             </form>
           </div>
@@ -194,7 +196,7 @@ export function RoyalGuestbook({ currentGuest }) {
                 className="royal-glass-card"
                 style={{
                   padding: '1.5rem',
-                  background: 'rgba(28, 24, 20, 0.85)',
+                  background: 'rgba(39, 18, 22, 0.88)',
                   border: '1px solid var(--glass-border)',
                 }}
               >

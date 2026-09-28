@@ -4,6 +4,8 @@ import { EVENT_CONFIG } from '../config/eventConfig'
 import { royalAudio } from '../utils/audio'
 import { fireCelebrationBlast } from '../utils/confetti'
 
+const { navbar: txt } = EVENT_CONFIG
+
 export function Navbar({ currentGuest, onLogout }) {
   const [isMuted, setIsMuted] = useState(royalAudio.isMuted)
 
@@ -25,7 +27,7 @@ export function Navbar({ currentGuest, onLogout }) {
       position: 'sticky',
       top: 0,
       zIndex: 100,
-      background: 'rgba(14, 4, 7, 0.90)',
+    background: 'rgba(26, 8, 13, 0.92)',
       backdropFilter: 'blur(18px)',
       WebkitBackdropFilter: 'blur(18px)',
       borderBottom: '1px solid rgba(81, 24, 31, 0.45)',
@@ -94,13 +96,13 @@ export function Navbar({ currentGuest, onLogout }) {
           letterSpacing: '0.05em',
         }}>
           <a href="#proclamation" style={{ color: 'var(--nude-200)', textDecoration: 'none' }} className="nav-link">
-            L'Annonce
+            {txt.linkAnnonce}
           </a>
           <a href="#details" style={{ color: 'var(--nude-200)', textDecoration: 'none' }} className="nav-link">
-            Protocole
+            {txt.linkProtocole}
           </a>
           <a href="#schedule" style={{ color: 'var(--gold-400)', textDecoration: 'none', fontWeight: 600 }} className="nav-link">
-            Programme
+            {txt.linkProgramme}
           </a>
         </div>
 
@@ -125,7 +127,7 @@ export function Navbar({ currentGuest, onLogout }) {
             }}
           >
             <PartyPopper size={15} color="#D4AF37" />
-            <span style={{ fontFamily: 'var(--font-royal)', fontWeight: 600 }}>Célébrer !</span>
+            <span style={{ fontFamily: 'var(--font-royal)', fontWeight: 600 }}>{txt.celebrateLabel}</span>
           </button>
 
           {/* Bouton Audio */}
@@ -163,9 +165,6 @@ export function Navbar({ currentGuest, onLogout }) {
             }}>
               <span style={{ color: 'var(--gold-400)', fontWeight: 600 }}>
                 {currentGuest.name}
-              </span>
-              <span style={{ color: 'var(--nude-400)', fontSize: '0.72rem' }}>
-                ({currentGuest.role})
               </span>
             </div>
           )}

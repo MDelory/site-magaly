@@ -4,6 +4,8 @@ import { verifyGuestEmail, EVENT_CONFIG } from '../config/eventConfig'
 import { fireRoyalConfetti } from '../utils/confetti'
 import { royalAudio } from '../utils/audio'
 
+const { gatekeeper: txt } = EVENT_CONFIG
+
 export function Gatekeeper({ onAccessGranted }) {
   const [emailInput, setEmailInput] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -18,22 +20,17 @@ export function Gatekeeper({ onAccessGranted }) {
     const guest = verifyGuestEmail(emailInput)
 
     if (guest) {
-      // Accès accordé !
       setAcceptedGuest(guest)
       setIsSuccess(true)
       fireRoyalConfetti()
       royalAudio.playRoyalFanfare()
 
-      // Enregistrement dans localStorage et transition vers la cour royale
       setTimeout(() => {
         onAccessGranted(guest)
       }, 1600)
     } else {
-      // Accès bloqué
       setIsShaking(true)
-      setErrorMessage(
-        "Accès non autorisé : Votre adresse ne figure pas sur le registre royal de Sa Majesté. Veuillez vérifier l'orthographe ou contacter le Grand Chambellan."
-      )
+      setErrorMessage(txt.errorMessage)
       setTimeout(() => setIsShaking(false), 600)
     }
   }
@@ -72,7 +69,7 @@ export function Gatekeeper({ onAccessGranted }) {
           textAlign: 'center',
           border: isSuccess ? '1px solid #D4AF37' : '1px solid var(--glass-border)',
           boxShadow: isSuccess 
-            ? '0 0 50px rgba(212, 175, 55, 0.35), 0 20px 50px rgba(0,0,0,0.8)' 
+            ? '0 0 50px rgba(212, 175, 55, 0.35), 0 20px 50px rgba(26, 5, 8, 0.8)' 
             : 'var(--glass-shadow)',
         }}
       >
@@ -82,7 +79,7 @@ export function Gatekeeper({ onAccessGranted }) {
             width: '84px',
             height: '84px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #2e261e 0%, #15120f 100%)',
+            background: 'linear-gradient(135deg, var(--bordeaux-800) 0%, var(--bordeaux-950) 100%)',
             border: '2px solid var(--gold-500)',
             display: 'flex',
             alignItems: 'center',
@@ -104,16 +101,16 @@ export function Gatekeeper({ onAccessGranted }) {
             background: '#D4AF37',
             borderRadius: '50%',
             padding: '4px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
+            boxShadow: '0 2px 8px rgba(26, 5, 8, 0.6)',
           }}>
-            <Sparkles size={14} color="#15120f" />
+            <Sparkles size={14} color="#271619" />
           </div>
         </div>
 
-        {/* Titre & Proclamation */}
+        {/* Badge */}
         <div className="royal-badge" style={{ marginBottom: '0.85rem' }}>
           <Crown size={12} />
-          {EVENT_CONFIG.queen.badge}
+          {txt.badge}
         </div>
 
         <h1 style={{
@@ -122,7 +119,7 @@ export function Gatekeeper({ onAccessGranted }) {
           marginBottom: '0.65rem',
           color: '#FAF7F2',
         }}>
-          Le Portail Royal
+          {txt.title}
         </h1>
 
         <p className="font-script" style={{
@@ -132,10 +129,10 @@ export function Gatekeeper({ onAccessGranted }) {
           marginBottom: '2rem',
           lineHeight: 1.5,
         }}>
-          "Par décret de la Reine Magaly, l'accès à la célébration officielle de sa remise de diplôme est strictement réservé aux invités d'honneur."
+          &ldquo;{txt.subtitle}&rdquo;
         </p>
 
-        {/* Notification de succès royale */}
+        {/* Notification de succès */}
         {isSuccess && acceptedGuest && (
           <div style={{
             background: 'rgba(212, 175, 55, 0.15)',
@@ -148,19 +145,19 @@ export function Gatekeeper({ onAccessGranted }) {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '0.4rem', color: '#F5E8BE' }}>
               <CheckCircle2 size={20} color="#D4AF37" />
               <strong style={{ fontFamily: 'var(--font-royal)', letterSpacing: '0.05em' }}>
-                ACCÈS ACCORDÉ À LA COUR
+                {txt.successTitle}
               </strong>
             </div>
             <p style={{ color: 'var(--nude-100)', fontSize: '0.95rem', fontWeight: 500 }}>
               Bienvenue, {acceptedGuest.name} !
             </p>
             <p style={{ color: 'var(--nude-300)', fontSize: '0.82rem', marginTop: '0.2rem' }}>
-              {acceptedGuest.role} • Ouverture des portes royales...
+              {txt.successSuffix}
             </p>
           </div>
         )}
 
-        {/* Formulaire de filtrage par email */}
+        {/* Formulaire */}
         {!isSuccess && (
           <form onSubmit={handleSubmit} style={{ marginBottom: '1.75rem' }}>
             <div style={{ position: 'relative', marginBottom: '1.25rem' }}>
@@ -186,12 +183,12 @@ export function Gatekeeper({ onAccessGranted }) {
                   setEmailInput(e.target.value)
                   if (errorMessage) setErrorMessage('')
                 }}
-                placeholder="Votre adresse email d'invitation..."
+                placeholder={txt.emailPlaceholder}
                 style={{
                   width: '100%',
                   padding: '0.95rem 1rem 0.95rem 2.85rem',
                   borderRadius: 'var(--radius-full)',
-                  background: 'rgba(21, 18, 15, 0.85)',
+                  background: 'rgba(39, 14, 19, 0.88)',
                   border: errorMessage ? '1px solid #b54a35' : '1px solid var(--glass-border)',
                   color: '#FAF7F2',
                   fontSize: '0.95rem',
@@ -210,10 +207,9 @@ export function Gatekeeper({ onAccessGranted }) {
               />
             </div>
 
-            {/* Message d'erreur élégant en cas de refus */}
             {errorMessage && (
               <div style={{
-                background: 'rgba(56, 26, 20, 0.65)',
+                background: 'rgba(56, 18, 18, 0.65)',
                 border: '1px solid #8f3826',
                 borderRadius: 'var(--radius-md)',
                 padding: '0.85rem 1rem',
@@ -238,12 +234,12 @@ export function Gatekeeper({ onAccessGranted }) {
               style={{ width: '100%', padding: '0.95rem' }}
             >
               <Lock size={16} />
-              Pénétrer dans le Palais
+              {txt.submitButton}
             </button>
           </form>
         )}
 
-        {/* Note de Protocole (Rappel Dress Code & Ambiance Nude - Sans Rose) */}
+        {/* Note de Protocole */}
         <div style={{
           paddingTop: '1.5rem',
           borderTop: '1px solid rgba(212, 175, 55, 0.12)',
@@ -253,11 +249,9 @@ export function Gatekeeper({ onAccessGranted }) {
           flexDirection: 'column',
           gap: '0.5rem',
         }}>
-          <div>
-            🏛️ <strong>Gala de Célébration</strong> • Palette Nude, Ivoire &amp; Or Impérial
-          </div>
+          <div>{txt.footerNote}</div>
           <div style={{ color: 'var(--gold-400)', fontStyle: 'italic' }}>
-            Règle de courtoisie royale : Tenues roses strictement proscrites.
+            {txt.footerRule}
           </div>
         </div>
 

@@ -1,5 +1,8 @@
 import React from 'react'
 import { Crown, Sparkles, ArrowUp } from 'lucide-react'
+import { EVENT_CONFIG } from '../config/eventConfig'
+
+const { footer: txt } = EVENT_CONFIG
 
 export function RoyalFooter() {
   const scrollToTop = () => {
@@ -10,7 +13,7 @@ export function RoyalFooter() {
     <footer style={{
       borderTop: '1px solid transparent',
       borderImage: 'linear-gradient(90deg, transparent 0%, rgba(81,24,31,0.6) 25%, rgba(212,175,55,0.4) 50%, rgba(81,24,31,0.6) 75%, transparent 100%) 1',
-      background: 'rgba(10, 4, 7, 0.97)',
+      background: 'rgba(26, 8, 13, 0.97)',
       padding: '4rem 1.5rem 3rem',
       textAlign: 'center',
       position: 'relative',
@@ -50,7 +53,7 @@ export function RoyalFooter() {
           color: 'var(--gold-300)',
           marginBottom: '1.5rem',
         }}>
-          "Que cette nuit royale résonne à jamais dans la mémoire de la Cour."
+          &ldquo;Que cette nuit royale résonne à jamais dans la mémoire de la Cour.&rdquo;
         </p>
 
         {/* Rappel Charte */}
@@ -64,7 +67,7 @@ export function RoyalFooter() {
           color: 'var(--nude-300)',
           marginBottom: '2rem',
         }}>
-          ✨ Protocole d'Excellence • Palette Bordeaux, Nudes &amp; Or Impérial
+          {txt.protocol}
         </div>
 
         {/* Bouton Retour en Haut */}
@@ -75,7 +78,7 @@ export function RoyalFooter() {
             style={{ fontSize: '0.8rem', padding: '0.6rem 1.25rem' }}
           >
             <ArrowUp size={15} color="#D4AF37" />
-            Regagner le Haut du Palais
+            {txt.scrollTop}
           </button>
         </div>
 
@@ -86,7 +89,7 @@ export function RoyalFooter() {
           fontSize: '0.75rem',
           color: 'var(--nude-400)',
         }}>
-          © 2026 The Queen's Gala. Tous droits royaux réservés. Prêt pour publication GitHub Pages.
+          {txt.copyright}
         </div>
 
       </div>

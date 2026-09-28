@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { HelpCircle, ChevronDown } from 'lucide-react'
 import { EVENT_CONFIG } from '../config/eventConfig'
 
+const { faqSection: txt, faq: items } = EVENT_CONFIG
+
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0)
 
@@ -20,17 +22,17 @@ export function FaqSection() {
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="royal-badge" style={{ marginBottom: '0.75rem' }}>
             <HelpCircle size={14} />
-            ÉCLAIRCISSEMENTS DE LA COUR
+            {txt.badge}
           </div>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.7rem)',
             color: '#FAF7F2',
             marginBottom: '0.65rem',
           }}>
-            Questions Fréquentes
+            {txt.sectionTitle}
           </h2>
           <p style={{ color: 'var(--nude-300)', maxWidth: '580px', margin: '0 auto', fontSize: '0.95rem' }}>
-            Les réponses aux interrogations des invités pour une soirée sans le moindre faux pas.
+            {txt.subtitle}
           </p>
           <div style={{
             width: '80px',
@@ -42,7 +44,7 @@ export function FaqSection() {
 
         {/* Liste Accordéon */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {EVENT_CONFIG.faq.map((item, index) => {
+          {items.map((item, index) => {
             const isOpen = openIndex === index
 
             return (

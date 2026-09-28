@@ -2,6 +2,8 @@ import React from 'react'
 import { Sparkles, Wine, Crown, Utensils, Music, Moon, Clock } from 'lucide-react'
 import { EVENT_CONFIG } from '../config/eventConfig'
 
+const { timeline: txt } = EVENT_CONFIG
+
 const ICON_MAP = {
   Sparkles,
   Wine,
@@ -23,17 +25,17 @@ export function RoyalTimeline() {
         <div style={{ textAlign: 'center', marginBottom: '3.75rem' }}>
           <div className="royal-badge" style={{ marginBottom: '0.75rem' }}>
             <Clock size={14} />
-            DÉROULEMENT DU PROTOCOLE
+            {txt.badge}
           </div>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.7rem)',
             color: '#FAF7F2',
             marginBottom: '0.65rem',
           }}>
-            Le Programme de la Nuit Royale
+            {txt.sectionTitle}
           </h2>
           <p style={{ color: 'var(--nude-300)', maxWidth: '580px', margin: '0 auto', fontSize: '0.95rem' }}>
-            De l'accueil solennel jusqu'au bal festif, chaque instant a été orchestré pour célébrer le triomphe de la Reine.
+            {txt.subtitle}
           </p>
           <div style={{
             width: '80px',
@@ -95,7 +97,7 @@ export function RoyalTimeline() {
                     style={{
                       flexGrow: 1,
                       padding: '1.5rem 1.75rem',
-                      background: 'rgba(28, 24, 20, 0.85)',
+                      background: 'rgba(39, 18, 22, 0.85)',
                     }}
                   >
                     <div style={{
