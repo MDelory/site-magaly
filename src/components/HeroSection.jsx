@@ -45,10 +45,10 @@ export function HeroSection({ currentGuest }) {
       'BEGIN:VEVENT',
       'UID:graduation-magaly-2026@queen.fr',
       'DTSTAMP:20260926T200000Z',
-      'DTSTART:20261024T160000Z',
+      'DTSTART:20261024T173000Z',
       'DTEND:20261025T020000Z',
-      "SUMMARY:The Queen's Graduation Gala - Magaly",
-      'DESCRIPTION:Célébration officielle de remise de diplôme de Magaly. Dress code : Nude & Or impérial (Aucun rose toléré).',
+      `SUMMARY:${txt.icsSummary || "Célébration Diplôme Magaly - Restaurant de l'Hippodrome"}`,
+      `DESCRIPTION:${txt.icsDescription || "Dîner au Restaurant de l'Hippodrome à 19h30, clôture restaurant 23h, puis verre en ville !"}`,
       `LOCATION:${event.location.name}\\, ${event.location.address}`,
       'STATUS:CONFIRMED',
       'END:VEVENT',
@@ -59,7 +59,7 @@ export function HeroSection({ currentGuest }) {
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
-    link.setAttribute('download', 'Gala-Diplome-Queen-Magaly.ics')
+    link.setAttribute('download', 'Celebration-Magaly-Hippodrome.ics')
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

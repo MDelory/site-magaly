@@ -18,63 +18,53 @@ export const EVENT_CONFIG = {
   event: {
     title: "The Queen's Graduation Gala",
     subtitle: "Célébration Royale & Nuit d'Élégance",
-    dateFormatted: "Samedi 24 Octobre 2026",
+    dateFormatted: "Vendredi 09 Octobre 2026",
     // Target ISO date for the live countdown timer
-    isoDate: "2026-10-24T18:00:00",
-    time: "18h00 - Jusqu'au bout de la nuit",
-    doorsOpen: "17h30",
+    isoDate: "2026-10-09T19:30:00",
+    time: "19h30 - 23h00 (puis virée en ville)",
+    doorsOpen: "19h30",
     location: {
-      name: "Le Pavillon Royal & Ses Salons Dorés",
-      address: "Carrefour du Bout des Lacs, 75016 Paris",
-      accessNote: "Service de voiturier royal disponible & Parking privé d'honneur",
-      mapQuery: "Pavillon Royal Paris",
+      name: "Restaurant de l'Hippodrome",
+      address: "137 Bd Clemenceau, 59700 Marcq-en-Barœul",
+      accessNote: "Restaurant situé au sein de l'Hippodrome de Marcq-en-Barœul. Parking facile et gratuit sur place.",
+      mapQuery: "Hippodrome 137 Bd Clemenceau 59700 Marcq-en-Barœul",
     },
     dressCode: {
-      title: "Majesté & Élégance Nude",
+      title: "Élégance Festive",
       paletteName: "Palette Royale : Nudes, Champagne, Sable, Ivoire & Or",
-      description: "Tenue de gala ou cocktail d'apparat. Privilégiez les étoffes soyeuses, lins fins, satins chauds, beiges solaires et reflets dorés.",
-      warning: "DÉCRET ROYAL STRICT : Aucune couleur rose ne sera admise dans l'enceinte du palais !",
-      warningShort: "Aucune touche de rose ne sera tolérée au gala.",
-      paletteLabel: "Échantillons de la palette autorisée :",
-      paletteSwatches: [
-        { name: "Champagne Royal", hex: "#EAD7B7" },
-        { name: "Nude Poudré Chaud", hex: "#DFCBB5" },
-        { name: "Sable Doré", hex: "#CDB397" },
-        { name: "Or Impérial", hex: "#D4AF37" },
-        { name: "Mocha & Noyer", hex: "#5C4638" },
-      ],
+      description: "Tenue chic et festive.",
+      warning: "",
+      warningShort: "",
+      paletteLabel: "",
+      paletteSwatches: [],
     },
 
     // Labels UI centralisés pour EventDetails
     ui: {
       protocol: {
-        badge: "DÉCRETS & DISPOSITIONS DU PALAIS",
-        title: "Le Protocole Festif",
-        subtitle: "Toutes les indications pour honorer l'invitation dans les règles de l'art royal.",
+        badge: "INFORMATIONS PRATIQUES",
+        title: "Lieu & Horaires de la Soirée",
+        subtitle: "Toutes les indications pour nous rejoindre au restaurant et célébrer le diplôme de Magaly.",
       },
       dateCard: {
-        badge: "HORAIRE DES RÉJOUISSANCES",
-        doorsLabel: "Arrivée & Tapis d'Honneur",
-        startLabel: "Lancement solennel du Gala",
-        endLabel: "Bal & Nuit Royale",
-        startTime: "18h00",
-        endTime: "Jusqu'à 04h00",
-        footnote: "La ponctualité est la politesse des rois et reines.",
+        badge: "HORAIRES DE LA SOIRÉE",
+        doorsLabel: "Arrivée & Apéritif d'accueil",
+        startLabel: "Dîner festif au restaurant",
+        endLabel: "Clôture du restaurant (Max)",
+        startTime: "20h15",
+        endTime: "23h00",
+        footnote: "Next step après 23h : Virée en ville pour boire un verre et continuer la fête pour ceux qui le souhaitent ! (Heure de fin : ???)",
       },
       locationCard: {
-        badge: "RÉSIDENCE DE RÉCEPTION",
-        mapButton: "Ouvrir le Plan d'Accès GPS",
-      },
-      dressCard: {
-        badge: "CODE VESTIMENTAIRE IMPÉRIAL",
-        warningLabel: "DÉCRET ROYAL STRICT :",
-        paletteSelection: "Sélection :",
+        badge: "LIEU DE RÉCEPTION",
+        mapButton: "Ouvrir l'itinéraire Google Maps",
       },
       map: {
-        badge: "LOCALISATION DU GALA",
-        title: "Rejoindre le Palais",
-        subtitle: "Itinéraire et plan d'accès pour se rendre au Pavillon Royal le soir du gala.",
-        note: "Arrivée recommandée à partir de 17h30. Accès et parking privé disponibles sur place.",
+        badge: "LOCALISATION",
+        title: "Rejoindre le Restaurant",
+        subtitle: "Restaurant de l'Hippodrome, 137 Bd Clemenceau, 59700 Marcq-en-Barœul.",
+        note: "Arrivée à partir de 19h30. Parking gratuit sur place à l'Hippodrome.",
+        gpsButton: "Itinéraire GPS",
       },
     },
   },
@@ -83,25 +73,28 @@ export const EVENT_CONFIG = {
   gatekeeper: {
     badge: "Couronnement Académique 2026",
     title: "Le Portail Royal",
-    subtitle: "Par décret, l'accès à la célébration officielle de remise de diplôme est strictement réservé aux invités d'honneur.",
+    subtitle: "L'accès à la célébration officielle de remise de diplôme de Magaly est réservé aux invités d'honneur.",
     emailPlaceholder: "Votre adresse email d'invitation...",
     submitButton: "Pénétrer dans le Palais",
     successTitle: "ACCÈS ACCORDÉ",
+    welcomePrefix: "Bienvenue,",
     successSuffix: "Ouverture des portes...",
     errorMessage: "Accès non autorisé : Votre adresse ne figure pas sur le registre. Veuillez vérifier l'orthographe ou contacter l'organisatrice.",
-    footerNote: "🏛️ Gala de Célébration • Palette Nude, Ivoire & Or Impérial",
-    footerRule: "Règle de courtoisie : Tenues roses strictement proscrites.",
+    footerNote: "🔒 Invitation privée & confidentielle",
+    footerRule: "Veuillez renseigner votre email d'invitation pour accéder au lieu, aux horaires et aux détails de la soirée.",
   },
 
   // Textes de la section Hero
   hero: {
     badge: "PAR DÉCRET OFFICIEL",
     subtitle: "Le Couronnement Académique de",
-    countdownLabel: "Temps restant avant l'ouverture des portes royales",
+    countdownLabel: "Temps restant avant l'arrivée au restaurant",
     countdownUnits: ["Jours", "Heures", "Minutes", "Secondes"],
-    ctaProtocol: "Le Protocole & Dress Code",
+    ctaProtocol: "Lieu & Horaires",
     ctaCalendar: "Ajouter au Calendrier",
-    guestConvocation: "Ordre de convocation délivré à :",
+    guestConvocation: "Invitation officielle délivrée à :",
+    icsSummary: "Célébration Diplôme Magaly - Restaurant de l'Hippodrome",
+    icsDescription: "Dîner au Restaurant de l'Hippodrome (137 Bd Clemenceau, Marcq-en-Barœul) à 19h30, clôture restaurant 23h, puis verre en ville pour ceux qui veulent !",
   },
 
   // Textes de la section Proclamation
@@ -111,9 +104,9 @@ export const EVENT_CONFIG = {
     manuscriptLabel: "MANUSCRIT DU PALAIS ACADÉMIQUE",
     cardTitle: "\"Des Années d'Efforts, un Instant de Gloire Éternelle\"",
     paragraph1: "Qu'il soit su de tous les sujets et bienaimés : au terme d'un chemin rigoureux, jalonné de nuits d'étude, d'audace intellectuelle et d'une détermination sans faille, Magaly s'est élevée aux plus hauts honneurs.",
-    paragraph2: "Ce diplôme ne consacre pas seulement un grade universitaire ; il marque son avènement en tant que Reine de son destin. Pour célébrer cette apogée, les portes du Pavillon s'ouvrent à ceux qui ont partagé ses doutes et soutenu ses triomphes.",
+    paragraph2: "Ce diplôme ne consacre pas seulement un grade universitaire ; il marque son avènement en tant que Reine de son destin. Pour célébrer cette apogée, les portes s'ouvrent à ceux qui ont partagé ses doutes et soutenu ses triomphes.",
     diplomaCaption: "Promotion d'Excellence & Grand Mérite",
-    honorPoints: ["Mention Triomphale", "Nuit Festive Royale", "Champagne & Banquet", "Tenues Nude & Gold"],
+    honorPoints: ["Mention Triomphale", "Dîner à l'Hippodrome", "Bulles & Célébration", "Virée en Ville Ensuite"],
     queenAttribution: "— Magaly",
   },
 
@@ -127,72 +120,8 @@ export const EVENT_CONFIG = {
     photo1Caption: "Organisatrice & Cheffe de Cérémonie",
     photo2Caption: "La passion derrière chaque détail",
     description: "Avec une attention méticuleuse aux détails et une passion débordante pour les célébrations d'exception, elle a conçu chaque instant de cette soirée royale pour que Magaly soit à l'honneur, entourée de ses proches dans un cadre somptueux.",
-  },
-
-  // Textes de la section RSVP
-  rsvp: {
-    badge: "CONFIRMATION OFFICIELLE",
-    sectionTitle: "Le Décret de Présence",
-    subtitle: "La confirmation de votre présence permet d'ajuster les honneurs du banquet et les bulles de champagne.",
-    attendingLabel: "VOTRE RÉPONSE :",
-    yesLabel: "👑 Je réponds présent(e) !",
-    yesCaption: "Je célébrerai ce couronnement avec éclat.",
-    noLabel: "🕊️ Avec le plus grand regret",
-    noCaption: "Je serai absent(e) mais de tout cœur avec la Reine.",
-    plusOneLabel: "Je serai accompagné(e) d'un invité (+1 inclus dans mon invitation)",
-    plusOnePlaceholder: "Nom & Prénom de votre accompagnant(e)...",
-    banquetLabel: "PRÉFÉRENCE POUR LE BANQUET :",
-    messageLabel: "UN MOT PERSONNEL POUR MAGALY :",
-    messagePlaceholder: "Écrivez un mot doux, un toast ou une pensée bienveillante...",
-    submitButton: "Signer le Décret de Présence",
-    ticketBadgePrefix: "RÉFÉRENCE OFFICIELLE :",
-    confirmedYesTitle: "Votre Présence est Enregistrée !",
-    confirmedNoTitle: "Votre Message a été Transmis",
-    confirmedYesText: "Votre place au Pavillon Royal est réservée pour cette nuit mémorable.",
-    confirmedNoText: "Magaly a bien reçu votre réponse. Vos pensées bienveillantes illumineront cette célébration.",
-    printButton: "Imprimer / Sauvegarder mon Pass",
-    editButton: "Modifier ma réponse",
-    guestLabel: "Invité(e) :",
-    plusOneSummaryLabel: "Accompagnant (+1) :",
-    dietLabel: "Régime au banquet :",
-    dressCodeLabel: "Dress Code :",
-    dressCodeValue: "Nude & Gold (Zéro Rose)",
-    dietOptions: [
-      { value: "standard", label: "Menu Gastronomique d'Apparat (Viande & Poisson)" },
-      { value: "vegetarien", label: "Menu Végétarien Gourmand" },
-      { value: "sans-gluten", label: "Menu Sans Gluten & Allergènes" },
-      { value: "halal", label: "Menu Spécial / Halal" },
-      { value: "sans-alcool", label: "Option Sans Alcool (Cocktails & Bulles Pétillantes)" },
-    ],
-  },
-
-  // Textes du Livre d'Or
-  guestbook: {
-    badge: "REGISTRE DES ÉLOGES",
-    sectionTitle: "Le Livre d'Or de la Reine",
-    subtitle: "Laissez une dédicace, portez un toast ou partagez vos vœux les plus chaleureux pour Magaly.",
-    nameLabel: "VOTRE NOM :",
-    namePlaceholder: "Votre nom...",
-    badgeLabel: "SCEAU DU TOAST :",
-    messageLabel: "VOTRE MESSAGE À MAGALY :",
-    messagePlaceholder: "Écrivez vos félicitations mémorables...",
-    submitButton: "Apposer mon Sceau au Livre d'Or",
-    formTitle: "Porter un Toast Royal",
-    roleDefault: "Ami(e) de Magaly",
-  },
-
-  // Textes de la section Timeline
-  timeline: {
-    badge: "DÉROULEMENT DU PROTOCOLE",
-    sectionTitle: "Le Programme de la Nuit Royale",
-    subtitle: "De l'accueil solennel jusqu'au bal festif, chaque instant a été orchestré pour célébrer le triomphe de la Reine.",
-  },
-
-  // Textes de la FAQ
-  faqSection: {
-    badge: "ÉCLAIRCISSEMENTS DE LA COUR",
-    sectionTitle: "Questions Fréquentes",
-    subtitle: "Les réponses aux interrogations des invités pour une soirée sans le moindre faux pas.",
+    tag1: "✨ Organisatrice",
+    tag2: "👑 Gala 2026",
   },
 
   // Textes du footer
@@ -209,8 +138,8 @@ export const EVENT_CONFIG = {
     logoTitle: "QUEEN MAGALY",
     logoSubtitle: "Graduation Gala 2026",
     linkAnnonce: "L'Annonce",
-    linkProtocole: "Protocole",
-    linkProgramme: "Programme",
+    linkOrganisatrice: "L'Organisatrice",
+    linkProtocole: "Lieu & Horaires",
     celebrateLabel: "Célébrer !",
   },
 
@@ -257,102 +186,6 @@ export const EVENT_CONFIG = {
       name: "Invité VIP",
       plusOne: false,
       greeting: "Un siège de prestige vous est d'ores et déjà réservé.",
-    },
-  ],
-
-  // Protocole et chronologie festive
-  schedule: [
-    {
-      time: "17h30",
-      title: "L'Arrivée des Dignitaires",
-      description: "Accueil sur le tapis d'honneur, contrôle du sceau royal et vestiaire privé.",
-      icon: "Sparkles",
-    },
-    {
-      time: "18h15",
-      title: "Cocktail Champagne & Canapés",
-      description: "Bulles dorées, amuse-bouches gastronomiques et ambiance jazz festif.",
-      icon: "Wine",
-    },
-    {
-      time: "19h30",
-      title: "Le Couronnement Académique",
-      description: "Discours solennel de la Reine Magaly, éloges impériaux et acclamations.",
-      icon: "Crown",
-    },
-    {
-      time: "20h30",
-      title: "Banquet des Souverains",
-      description: "Dîner gastronomique assis sous les lustres de cristal du Pavillon.",
-      icon: "Utensils",
-    },
-    {
-      time: "22h30",
-      title: "Ouverture du Bal & Dancefloor Royal",
-      description: "Set DJ exclusif, tubes d'anthologie, hymnes légendaires de Queen et fête jusqu'à l'aube.",
-      icon: "Music",
-    },
-    {
-      time: "03h00",
-      title: "Buffet Nocturne & Souvenirs",
-      description: "Gourmandises de nuit, signature du parchemin royal et photos souvenirs.",
-      icon: "Moon",
-    },
-  ],
-
-  // Messages d'accueil et toasts initiaux dans le Livre d'Or
-  initialToasts: [
-    {
-      id: 1,
-      author: "La Cour",
-      role: "Vœux d'Honneur",
-      date: "Il y a 2 jours",
-      badge: "👑 Majesté",
-      message: "Toutes nos félicitations pour ce parcours exemplaire. Tu portes déjà la couronne avec une grâce infinie !",
-    },
-    {
-      id: 2,
-      author: "Martin",
-      role: "Ami fidèle",
-      date: "Hier",
-      badge: "🍾 Champagne",
-      message: "Des nuits de révisions jusqu'à cette victoire éclatante... Bravo Magaly, tu mérites la plus royale des fêtes !",
-    },
-    {
-      id: 3,
-      author: "Cercle des Amis",
-      role: "Fidèles Amis",
-      date: "Aujourd'hui",
-      badge: "✨ Pure Légende",
-      message: "On a hâte de brûler le dancefloor pour célébrer notre Queen préférée. Prépare ta couronne !",
-    },
-  ],
-
-  // Playlist festive recommandée & suggestions
-  royalAnthems: [
-    { title: "Don't Stop Me Now", artist: "Queen", mood: "L'Hymne Festif Absolu" },
-    { title: "We Are The Champions", artist: "Queen", mood: "Le Triomphe du Diplôme" },
-    { title: "Dancing Queen", artist: "ABBA (Orchestral & Disco)", mood: "L'Élégance du Bal" },
-    { title: "Cuff It", artist: "Beyoncé", mood: "Groove Royal" },
-    { title: "Celebration", artist: "Kool & The Gang", mood: "Feux de Joie" },
-  ],
-
-  faq: [
-    {
-      q: "Quel est le dress code exact ?",
-      a: "Tenue chic, festive et élégante. La palette imposée est : Nude, Crème, Ivoire, Champagne, Sable, Doré ou Noir profond. RAPPEL DÉCISIF : Aucun rose n'est toléré.",
-    },
-    {
-      q: "Puis-je venir accompagné(e) ?",
-      a: "Votre invitation personnalisée vous indique si un accompagnant (+1) est inclus. Vous pourrez confirmer son nom dans le formulaire RSVP.",
-    },
-    {
-      q: "Y a-t-il une cagnotte pour la diplômée ?",
-      a: "Votre présence est le plus beau cadeau. Pour ceux qui souhaitent gâter Magaly dans ses futurs projets, une urne et un QR Code sécurisé seront à disposition dans le salon d'honneur.",
-    },
-    {
-      q: "Comment rejoindre le Pavillon ?",
-      a: "Accès par l'Avenue de la Victoire. Parking d'honneur surveillé gratuit sur place, ou taxi / VTC directement aux marches du péristyle.",
     },
   ],
 }

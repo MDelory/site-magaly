@@ -44,7 +44,7 @@ export function RoyalFooter() {
           color: '#FAF7F2',
           marginBottom: '0.4rem',
         }}>
-          THE QUEEN'S GRADUATION GALA
+          {txt.title}
         </div>
 
         <p className="font-script" style={{
@@ -53,7 +53,7 @@ export function RoyalFooter() {
           color: 'var(--gold-300)',
           marginBottom: '1.5rem',
         }}>
-          &ldquo;Que cette nuit royale résonne à jamais dans la mémoire de la Cour.&rdquo;
+          &ldquo;{txt.quote}&rdquo;
         </p>
 
         {/* Rappel Charte */}

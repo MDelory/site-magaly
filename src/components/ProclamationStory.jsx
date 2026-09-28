@@ -329,8 +329,8 @@ export function ProclamationStory() {
                 gap: '0.75rem',
                 flexWrap: 'wrap',
               }}>
-                <span className="royal-badge-bordeaux">✨ Organisatrice</span>
-                <span className="royal-badge">👑 Gala 2026</span>
+                <span className="royal-badge-bordeaux">{org.tag1}</span>
+                <span className="royal-badge">{org.tag2}</span>
               </div>
             </div>
 

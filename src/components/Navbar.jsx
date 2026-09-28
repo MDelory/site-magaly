@@ -56,7 +56,7 @@ export function Navbar({ currentGuest, onLogout }) {
             width: '38px',
             height: '38px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #2e261e 0%, #15120f 100%)',
+            background: 'linear-gradient(135deg, var(--bordeaux-800) 0%, var(--bordeaux-950) 100%)',
             border: '1.5px solid var(--gold-500)',
             display: 'flex',
             alignItems: 'center',
@@ -73,7 +73,7 @@ export function Navbar({ currentGuest, onLogout }) {
               letterSpacing: '0.08em',
               color: '#FAF7F2',
             }}>
-              QUEEN MAGALY
+              {txt.logoTitle}
             </div>
             <div style={{
               fontSize: '0.7rem',
@@ -81,7 +81,7 @@ export function Navbar({ currentGuest, onLogout }) {
               letterSpacing: '0.05em',
               textTransform: 'uppercase',
             }}>
-              Graduation Gala 2026
+              {txt.logoSubtitle}
             </div>
           </div>
         </a>
@@ -94,15 +94,16 @@ export function Navbar({ currentGuest, onLogout }) {
           fontSize: '0.86rem',
           fontFamily: 'var(--font-royal)',
           letterSpacing: '0.05em',
+          flexWrap: 'wrap',
         }}>
           <a href="#proclamation" style={{ color: 'var(--nude-200)', textDecoration: 'none' }} className="nav-link">
             {txt.linkAnnonce}
           </a>
-          <a href="#details" style={{ color: 'var(--nude-200)', textDecoration: 'none' }} className="nav-link">
-            {txt.linkProtocole}
+          <a href="#organisatrice" style={{ color: 'var(--nude-200)', textDecoration: 'none' }} className="nav-link">
+            {txt.linkOrganisatrice}
           </a>
-          <a href="#schedule" style={{ color: 'var(--gold-400)', textDecoration: 'none', fontWeight: 600 }} className="nav-link">
-            {txt.linkProgramme}
+          <a href="#details" style={{ color: 'var(--gold-400)', textDecoration: 'none', fontWeight: 600 }} className="nav-link">
+            {txt.linkProtocole}
           </a>
         </div>
 
@@ -135,7 +136,7 @@ export function Navbar({ currentGuest, onLogout }) {
             onClick={handleAudioToggle}
             title={isMuted ? "Activer les sons royaux" : "Couper le son"}
             style={{
-              background: 'rgba(38, 32, 27, 0.65)',
+              background: 'rgba(49, 18, 25, 0.75)',
               border: '1px solid var(--glass-border)',
               color: 'var(--nude-300)',
               borderRadius: '50%',
@@ -154,7 +155,7 @@ export function Navbar({ currentGuest, onLogout }) {
           {/* Statut Invité */}
           {currentGuest && (
             <div style={{
-              background: 'rgba(38, 32, 27, 0.85)',
+              background: 'rgba(49, 18, 25, 0.85)',
               border: '1px solid var(--glass-border)',
               borderRadius: 'var(--radius-full)',
               padding: '0.35rem 0.85rem',
