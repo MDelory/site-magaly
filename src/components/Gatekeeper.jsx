@@ -1,32 +1,34 @@
 import React, { useState } from 'react'
-import { Crown, Sparkles, Mail, Lock, Unlock, AlertCircle, CheckCircle2 } from 'lucide-react'
-import { verifyGuestEmail, EVENT_CONFIG } from '../config/eventConfig'
+import { Crown, Sparkles, KeyRound, Lock, Unlock, AlertCircle, CheckCircle2, Eye, EyeOff } from 'lucide-react'
+import { verifyAccessPassword, EVENT_CONFIG } from '../config/eventConfig'
 import { fireRoyalConfetti } from '../utils/confetti'
 import { royalAudio } from '../utils/audio'
 
 const { gatekeeper: txt } = EVENT_CONFIG
 
 export function Gatekeeper({ onAccessGranted }) {
-  const [emailInput, setEmailInput] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [isShaking, setIsShaking] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
-  const [acceptedGuest, setAcceptedGuest] = useState(null)
+  const [isChecking, setIsChecking] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setErrorMessage('')
+    setIsChecking(true)
 
-    const guest = verifyGuestEmail(emailInput)
+    const isValid = await verifyAccessPassword(password)
+    setIsChecking(false)
 
-    if (guest) {
-      setAcceptedGuest(guest)
+    if (isValid) {
       setIsSuccess(true)
       fireRoyalConfetti()
       royalAudio.playRoyalFanfare()
 
       setTimeout(() => {
-        onAccessGranted(guest)
+        onAccessGranted()
       }, 1600)
     } else {
       setIsShaking(true)
@@ -133,7 +135,7 @@ export function Gatekeeper({ onAccessGranted }) {
         </p>
 
         {/* Notification de succès */}
-        {isSuccess && acceptedGuest && (
+        {isSuccess && (
           <div style={{
             background: 'rgba(212, 175, 55, 0.15)',
             border: '1px solid #D4AF37',
@@ -149,7 +151,7 @@ export function Gatekeeper({ onAccessGranted }) {
               </strong>
             </div>
             <p style={{ color: 'var(--nude-100)', fontSize: '0.95rem', fontWeight: 500 }}>
-              Bienvenue, {acceptedGuest.name} !
+              {txt.welcomeMessage}
             </p>
             <p style={{ color: 'var(--nude-300)', fontSize: '0.82rem', marginTop: '0.2rem' }}>
               {txt.successSuffix}
@@ -171,22 +173,23 @@ export function Gatekeeper({ onAccessGranted }) {
                 display: 'flex',
                 alignItems: 'center',
               }}>
-                <Mail size={18} />
+                <KeyRound size={18} />
               </div>
 
               <input
-                id="guest-email-input"
-                type="email"
+                id="royal-password-input"
+                type={showPassword ? 'text' : 'password'}
                 required
-                value={emailInput}
+                autoComplete="current-password"
+                value={password}
                 onChange={(e) => {
-                  setEmailInput(e.target.value)
+                  setPassword(e.target.value)
                   if (errorMessage) setErrorMessage('')
                 }}
-                placeholder={txt.emailPlaceholder}
+                placeholder={txt.passwordPlaceholder}
                 style={{
                   width: '100%',
-                  padding: '0.95rem 1rem 0.95rem 2.85rem',
+                  padding: '0.95rem 2.85rem 0.95rem 2.85rem',
                   borderRadius: 'var(--radius-full)',
                   background: 'rgba(39, 14, 19, 0.88)',
                   border: errorMessage ? '1px solid #b54a35' : '1px solid var(--glass-border)',
@@ -205,6 +208,30 @@ export function Gatekeeper({ onAccessGranted }) {
                   e.target.style.boxShadow = 'none'
                 }}
               />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                title={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                style={{
+                  position: 'absolute',
+                  right: '1rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--nude-400)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: 0,
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#FAF7F2')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--nude-400)')}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
 
             {errorMessage && (
@@ -230,11 +257,12 @@ export function Gatekeeper({ onAccessGranted }) {
             <button
               id="submit-royal-access"
               type="submit"
+              disabled={isChecking}
               className="btn-royal-primary"
-              style={{ width: '100%', padding: '0.95rem' }}
+              style={{ width: '100%', padding: '0.95rem', opacity: isChecking ? 0.75 : 1 }}
             >
               <Lock size={16} />
-              {txt.submitButton}
+              {isChecking ? 'Vérification en cours...' : txt.submitButton}
             </button>
           </form>
         )}

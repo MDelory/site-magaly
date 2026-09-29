@@ -73,15 +73,19 @@ export const EVENT_CONFIG = {
   gatekeeper: {
     badge: "Couronnement Académique 2026",
     title: "Le Portail Royal",
-    subtitle: "L'accès à la célébration officielle de remise de diplôme de Magaly est réservé aux invités d'honneur.",
-    emailPlaceholder: "Votre adresse email d'invitation...",
+    subtitle: "L'accès à la célébration officielle de remise de diplôme de Magaly est réservé aux invités munis du code d'honneur.",
+    passwordPlaceholder: "Mot de passe royal d'invitation...",
     submitButton: "Pénétrer dans le Palais",
     successTitle: "ACCÈS ACCORDÉ",
-    welcomePrefix: "Bienvenue,",
-    successSuffix: "Ouverture des portes...",
-    errorMessage: "Accès non autorisé : Votre adresse ne figure pas sur le registre. Veuillez vérifier l'orthographe ou contacter l'organisatrice.",
+    welcomeMessage: "Bienvenue à la célébration officielle de la Reine Magaly !",
+    successSuffix: "Ouverture des portes du Palais...",
+    errorMessage: "Mot de passe non reconnu : Veuillez vérifier le code d'accès ou contacter l'organisatrice.",
     footerNote: "🔒 Invitation privée & confidentielle",
-    footerRule: "Veuillez renseigner votre email d'invitation pour accéder au lieu, aux horaires et aux détails de la soirée.",
+    footerRule: "Veuillez renseigner le mot de passe unique pour accéder au lieu, aux horaires et aux détails de la soirée.",
+    // Mot de passe unique pour les invités, stocké sous forme de hash SHA-256 (insensible à la casse, espaces nettoyés).
+    // Valeur par défaut : "magaly2026"
+    // Pour générer un nouveau hash : echo -n "nouveaumotdepasse" | sha256sum
+    passwordHash: "0eff4195af6f4663505c4555e1af422d33b781dbe027f7b9b925c050d5bc8d91",
   },
 
   // Textes de la section Hero
@@ -92,7 +96,6 @@ export const EVENT_CONFIG = {
     countdownUnits: ["Jours", "Heures", "Minutes", "Secondes"],
     ctaProtocol: "Lieu & Horaires",
     ctaCalendar: "Ajouter au Calendrier",
-    guestConvocation: "Invitation officielle délivrée à :",
     icsSummary: "Célébration Diplôme Magaly - Restaurant de l'Hippodrome",
     icsDescription: "Dîner au Restaurant de l'Hippodrome (137 Bd Clemenceau, Marcq-en-Barœul) à 19h30, clôture restaurant 23h, puis verre en ville pour ceux qui veulent !",
   },
@@ -143,59 +146,30 @@ export const EVENT_CONFIG = {
     celebrateLabel: "Célébrer !",
   },
 
-  // Liste des convives autorisés à franchir les portes royales
-  guests: [
-    {
-      email: "invite@royale.com",
-      name: "Invité(e) d'Honneur",
-      plusOne: true,
-      greeting: "C'est un privilège de vous compter parmi les convives de cette célébration.",
-    },
-    {
-      email: "martin@delory.fr",
-      name: "Martin Delory",
-      plusOne: true,
-      greeting: "Votre présence et votre dévouement honorent cette célébration.",
-    },
-    {
-      email: "queen@magaly.fr",
-      name: "Magaly",
-      plusOne: true,
-      greeting: "Toute la cour est prête à célébrer votre triomphe !",
-    },
-    {
-      email: "famille@magaly.fr",
-      name: "La Famille",
-      plusOne: true,
-      greeting: "Le cercle le plus cher à Magaly est attendu aux premières loges.",
-    },
-    {
-      email: "ami@magaly.fr",
-      name: "Cercle des Amis",
-      plusOne: true,
-      greeting: "Venez porter un toast inoubliable avec la Reine !",
-    },
-    {
-      email: "diplome@queen.fr",
-      name: "Promotion Triomphante",
-      plusOne: true,
-      greeting: "Après des années d'efforts, le couronnement est enfin là !",
-    },
-    {
-      email: "vip@diplome.com",
-      name: "Invité VIP",
-      plusOne: false,
-      greeting: "Un siège de prestige vous est d'ores et déjà réservé.",
-    },
-  ],
 }
 
 /**
- * Vérifie si l'email saisi figure sur la liste des invités
- * Insensible à la casse et aux espaces superflus
+ * Calcule le hash SHA-256 d'une chaîne de caractères (nettoyée et passée en minuscules)
+ * Utilise la Web Crypto API standard native du navigateur
  */
-export function verifyGuestEmail(inputEmail) {
-  if (!inputEmail || typeof inputEmail !== 'string') return null
-  const cleaned = inputEmail.trim().toLowerCase()
-  return EVENT_CONFIG.guests.find((g) => g.email.toLowerCase() === cleaned) || null
+export async function hashPassword(str) {
+  const cleaned = (str || '').trim().toLowerCase()
+  if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
+    const msgBuffer = new TextEncoder().encode(cleaned)
+    const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgBuffer)
+    const hashArray = Array.from(new Uint8Array(hashBuffer))
+    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
+  }
+  return null
 }
+
+/**
+ * Vérifie si le mot de passe saisi correspond au hash configuré
+ * Retourne une promesse résolue avec true ou false
+ */
+export async function verifyAccessPassword(inputPassword) {
+  if (!inputPassword || typeof inputPassword !== 'string') return false
+  const computedHash = await hashPassword(inputPassword)
+  return computedHash === EVENT_CONFIG.gatekeeper.passwordHash
+}
+

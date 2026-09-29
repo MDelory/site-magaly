@@ -5,7 +5,7 @@ import { fireCelebrationBlast } from '../utils/confetti'
 
 const { hero: txt, event, queen } = EVENT_CONFIG
 
-export function HeroSection({ currentGuest }) {
+export function HeroSection() {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -157,38 +157,6 @@ export function HeroSection({ currentGuest }) {
         }}>
           {txt.subtitle} {queen.firstName}
         </p>
-
-        {/* Salutation Personnalisée de l'Invité */}
-        {currentGuest && (
-          <div style={{
-            background: 'rgba(49, 18, 25, 0.72)',
-            border: '1px solid rgba(139, 37, 51, 0.38)',
-            borderRadius: 'var(--radius-md)',
-            padding: '1rem 1.5rem',
-            maxWidth: '680px',
-            margin: '0 auto 2.25rem',
-            backdropFilter: 'blur(10px)',
-            boxShadow: '0 4px 24px rgba(139, 37, 51, 0.15)',
-          }}>
-            <p className="font-script" style={{
-              fontSize: '1.25rem',
-              fontStyle: 'italic',
-              color: 'var(--nude-100)',
-              lineHeight: 1.4,
-            }}>
-              &ldquo;{currentGuest.greeting}&rdquo;
-            </p>
-            <div style={{
-              fontSize: '0.8rem',
-              color: 'var(--gold-400)',
-              marginTop: '0.4rem',
-              fontFamily: 'var(--font-royal)',
-              letterSpacing: '0.06em',
-            }}>
-              {txt.guestConvocation} {currentGuest.name}
-            </div>
-          </div>
-        )}
 
         {/* Infos Clés */}
         <div style={{

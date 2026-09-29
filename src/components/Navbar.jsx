@@ -6,7 +6,7 @@ import { fireCelebrationBlast } from '../utils/confetti'
 
 const { navbar: txt } = EVENT_CONFIG
 
-export function Navbar({ currentGuest, onLogout }) {
+export function Navbar({ onLogout }) {
   const [isMuted, setIsMuted] = useState(royalAudio.isMuted)
 
   const handleAudioToggle = () => {
@@ -107,7 +107,7 @@ export function Navbar({ currentGuest, onLogout }) {
           </a>
         </div>
 
-        {/* Actions & Profil de l'Invité */}
+        {/* Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           {/* Bouton Confettis Festive */}
           <button
@@ -152,28 +152,10 @@ export function Navbar({ currentGuest, onLogout }) {
             {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} color="#D4AF37" />}
           </button>
 
-          {/* Statut Invité */}
-          {currentGuest && (
-            <div style={{
-              background: 'rgba(49, 18, 25, 0.85)',
-              border: '1px solid var(--glass-border)',
-              borderRadius: 'var(--radius-full)',
-              padding: '0.35rem 0.85rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              fontSize: '0.78rem',
-            }}>
-              <span style={{ color: 'var(--gold-400)', fontWeight: 600 }}>
-                {currentGuest.name}
-              </span>
-            </div>
-          )}
-
           {/* Bouton Déconnexion */}
           <button
             onClick={onLogout}
-            title="Quitter la Cour et changer d'invité"
+            title="Verrouiller l'accès au Palais"
             style={{
               background: 'none',
               border: 'none',

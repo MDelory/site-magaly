@@ -7,14 +7,18 @@ import { EventDetails } from './components/EventDetails'
 import { RoyalFooter } from './components/RoyalFooter'
 
 export default function App() {
-  const [currentGuest, setCurrentGuest] = useState(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('queen_auth_guest')
-      if (stored) {
-        setCurrentGuest(JSON.parse(stored))
+      // Nettoyage éventuel de l'ancien format d'authentification invité
+      if (localStorage.getItem('queen_auth_guest')) {
+        localStorage.removeItem('queen_auth_guest')
+      }
+      const stored = localStorage.getItem('queen_royal_access')
+      if (stored === 'granted') {
+        setIsAuthenticated(true)
       }
     } catch (e) {
       console.error(e)
@@ -23,10 +27,10 @@ export default function App() {
     }
   }, [])
 
-  const handleAccessGranted = (guest) => {
-    setCurrentGuest(guest)
+  const handleAccessGranted = () => {
+    setIsAuthenticated(true)
     try {
-      localStorage.setItem('queen_auth_guest', JSON.stringify(guest))
+      localStorage.setItem('queen_royal_access', 'granted')
     } catch (e) {
       console.error(e)
     }
@@ -34,11 +38,11 @@ export default function App() {
 
   const handleLogout = () => {
     try {
-      localStorage.removeItem('queen_auth_guest')
+      localStorage.removeItem('queen_royal_access')
     } catch (e) {
       console.error(e)
     }
-    setCurrentGuest(null)
+    setIsAuthenticated(false)
   }
 
   if (isLoading) {
@@ -59,15 +63,15 @@ export default function App() {
     )
   }
 
-  if (!currentGuest) {
+  if (!isAuthenticated) {
     return <Gatekeeper onAccessGranted={handleAccessGranted} />
   }
 
   return (
     <div style={{ minHeight: '100vh', position: 'relative' }}>
-      <Navbar currentGuest={currentGuest} onLogout={handleLogout} />
+      <Navbar onLogout={handleLogout} />
       <main>
-        <HeroSection currentGuest={currentGuest} />
+        <HeroSection />
         <ProclamationStory />
         <EventDetails />
       </main>
